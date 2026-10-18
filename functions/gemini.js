@@ -73,6 +73,7 @@ async function assessWithGemini({ market, intent, context, signals, answers, ima
       responseMimeType: "application/json",
       responseSchema: SCHEMA,
       temperature: 0.2,
+      thinkingConfig: { thinkingBudget: 0 },
     },
   });
   const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error("Gemini timeout")), 25000));
