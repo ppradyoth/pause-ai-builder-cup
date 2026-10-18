@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAUSE: Stop coached-victim payment scams</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <div class="logo">❚❚</div>
+      <div>
+        <h1>PAUSE</h1>
+        <p>Protecting Authorised payments Under Social Engineering</p>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="tab active" data-tab="pay">Customer payment</button>
+      <button class="tab" data-tab="console">Fraud ops console <span id="openCount" class="pill hidden">0</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="pay" class="panel active">
+      <div class="intro">
+        <strong>The account is genuine. The device is genuine. The OTP is genuine. The intent is not.</strong>
+        PAUSE runs just before the PIN screen and checks whether a scammer is coaching the customer, the way you'd guard a prompt-injected AI agent.
+      </div>
+
+      <div class="scenarios">
+        <span>Demo scenarios:</span>
+        <button data-s="merchant">① UPI · known merchant</button>
+        <button data-s="collect">② UPI · "refund, enter PIN"</button>
+        <button data-s="inject">③ UPI · injected note</button>
+        <button data-s="japan">④ Japan · fake police</button>
+        <button data-s="sg">⑤ Singapore · "safe account"</button>
+      </div>
+
+      <div class="grid">
+        <form id="payForm" class="card">
+          <h2>1 · Payment</h2>
+          <div class="row">
+            <label>Market
+              <select id="market"></select>
+            </label>
+            <label>Payment rail
+              <input id="rail" readonly>
+            </label>
+          </div>
+          <label id="upiWrap">UPI link / QR payload <small>(upi://pay?pa=…&amp;pn=…&amp;am=…&amp;tn=…)</small>
+            <textarea id="upi" rows="2" placeholder="upi://pay?pa=merchant@okaxis&pn=Merchant&am=500&cu=INR&tn=Order"></textarea>
+          </label>
+          <div class="row">
+            <label>Payee ID <input id="payeeId" placeholder="name@bank / account / PayNow ID"></label>
+            <label>Payee name <input id="payeeName"></label>
+          </div>
+          <div class="row">
+            <label>Amount <input id="amount" type="number" min="0" step="any"></label>
+            <label>Currency <input id="currency" readonly></label>
+          </div>
+          <label>Payment note <input id="note"></label>
+
+          <h2>2 · Context <small>(from the device and bank, not controllable by the scammer)</small></h2>
+          <div class="row checks">
+            <label class="chk"><input type="checkbox" id="onCall"> On a live call right now</label>
+            <label class="chk"><input type="checkbox" id="newPayee"> First payment to this payee</label>
+            <label>Typical payment <input id="typical" type="number" min="0" step="any"></label>
+          </div>
+
+          <h2>3 · Quick check <small>(answer in any language)</small></h2>
+          <label><span class="q">Who asked you to make this payment, and why?</span><textarea id="a1" rows="2"></textarea></label>
+          <label><span class="q">Has anyone told you to keep this secret or stay on the line?</span><textarea id="a2" rows="2"></textarea></label>
+          <label><span class="q">How did you get this payee's details?</span><textarea id="a3" rows="2"></textarea></label>
+          <label>Document or screenshot someone sent you <small>(optional: notice, warrant, chat)</small>
+            <input id="doc" type="file" accept="image/*">
+          </label>
+
+          <button id="submitBtn" class="primary" type="submit">Continue to PIN</button>
+        </form>
+
+        <div class="card result" id="result">
+          <div class="empty">
+            <div class="big">❚❚</div>
+            <p>Pick a demo scenario or fill in a payment, then press <b>Continue to PIN</b>.</p>
+            <ul>
+              <li><b>Rules layer:</b> UPI parsing, collect-reversal, note injection, impersonation, payee reputation shared across victims</li>
+              <li><b>Gemini layer:</b> coercion and cover-story analysis in any language, document forgery check, a rebuttal written for this customer</li>
+              <li><b>Policy floor:</b> Gemini can make a verdict stricter, never more lenient</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="console" class="panel">
+      <div class="stats">
+        <div class="stat"><span id="stTotal">0</span><label>Payments checked</label></div>
+        <div class="stat hold"><span id="stHold">0</span><label>Held</label></div>
+        <div class="stat block"><span id="stBlock">0</span><label>Blocked</label></div>
+        <div class="stat mule"><span id="stMule">0</span><label>Likely mule payees</label></div>
+      </div>
+      <div class="grid wide">
+        <div class="card">
+          <h2>Live case queue <small>(Firestore real-time)</small></h2>
+          <div id="cases" class="cases"><p class="muted">Waiting for cases…</p></div>
+        </div>
+        <div class="card">
+          <h2>Payee reputation across victims</h2>
+          <p class="muted small">Every HOLD or BLOCK adds a report against the receiving payee. Reports from 2 or more separate cases mean a likely mule account, and future payments to it are blocked.</p>
+          <div id="payees"><p class="muted">No reported payees yet.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>PAUSE prototype · Gemini · Cloud Functions (Cloud Run) · Firestore · Firebase Hosting · Simulated payment flow; payee IDs masked.</footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

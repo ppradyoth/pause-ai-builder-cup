@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "public": "web",
+    "ignore": ["firebase.json", "**/.*"],
+    "rewrites": [
+      { "source": "/api/**", "function": { "functionId": "api", "region": "asia-south1" } }
+    ]
+  },
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs20",
+    "ignore": ["node_modules", ".git", "*.log"]
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  }
+}
