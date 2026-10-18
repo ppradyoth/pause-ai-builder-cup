@@ -40,7 +40,8 @@
           }
         ]
       }
-    ]
+    ],
+    "cleanUrls": true
   },
   "functions": {
     "source": "functions",
