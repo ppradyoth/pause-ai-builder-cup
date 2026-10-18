@@ -43,9 +43,7 @@ const SCHEMA = {
 
 let client;
 const getClient = () =>
-  (client ||= process.env.GEMINI_API_KEY && !process.env.USE_VERTEX
-    ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
-    : new GoogleGenAI({ vertexai: true, project: process.env.GCLOUD_PROJECT || "pause-aibuildercup-26", location: "global" }));
+  (client ||= new GoogleGenAI({ vertexai: true, project: process.env.GCLOUD_PROJECT || "pause-aibuildercup-26", location: "global" }));
 const clean = (v) => String(v ?? "").replace(/<\/?untrusted>/gi, "");
 
 async function assessWithGemini({ market, intent, context, signals, answers, image }) {

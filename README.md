@@ -54,10 +54,14 @@ Gemini only sees scammer-controlled text inside `<untrusted>` delimiters. Instru
 ## Production path
 Ships as an SDK hook in bank and payment apps, running just before the PIN screen, and feeds the bank's existing fraud engine as an extra signal. Analyst labels build an evaluation set. A live UPI connection needs a bank or payment-app partnership under NPCI; this prototype parses real UPI payloads and simulates the moment of payment.
 
+## Deploying (contributors)
+Push or merge to `main` and GitHub Actions deploys Hosting, Functions and Firestore rules (`.github/workflows/deploy.yml`). Pull requests run checks only.
+
+Deployment is **keyless**: the workflow exchanges GitHub's OIDC token for short-lived Google credentials through Workload Identity Federation, impersonating the `github-deployer` service account. No service-account keys or API keys exist in the repo or in GitHub secrets, and only the `main` branch of this repository can deploy. Gemini runs on Vertex AI under the function's runtime service account, so the app needs no API key either.
+
 ## Run it
 ```bash
 cd functions && npm install && cd ..
-echo "GEMINI_API_KEY=your_key" > functions/.env
 firebase deploy --project <your-project>
 ```
 

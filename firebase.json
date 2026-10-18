@@ -1,15 +1,35 @@
 {
   "hosting": {
     "public": "web",
-    "ignore": ["firebase.json", "**/.*"],
+    "ignore": [
+      "firebase.json",
+      "**/.*"
+    ],
     "rewrites": [
-      { "source": "/api/**", "function": { "functionId": "api", "region": "asia-south1" } }
+      {
+        "source": "/api/**",
+        "function": {
+          "functionId": "api",
+          "region": "asia-south1"
+        }
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/demo",
+        "destination": "https://github.com/ppradyoth/pause-ai-builder-cup#readme",
+        "type": 302
+      }
     ]
   },
   "functions": {
     "source": "functions",
     "runtime": "nodejs20",
-    "ignore": ["node_modules", ".git", "*.log"]
+    "ignore": [
+      "node_modules",
+      ".git",
+      "*.log"
+    ]
   },
   "firestore": {
     "rules": "firestore.rules"

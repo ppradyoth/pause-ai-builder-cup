@@ -36,7 +36,7 @@ function buildIntent(body) {
   };
 }
 
-app.get("/api/health", (req, res) => res.json({ ok: true, gemini: process.env.USE_VERTEX ? "vertex" : "api-key" }));
+app.get("/api/health", (req, res) => res.json({ ok: true, gemini: "vertex" }));
 
 app.post("/api/assess", async (req, res) => {
   try {
