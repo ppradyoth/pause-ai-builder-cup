@@ -6,6 +6,8 @@ Live prototype: https://pause-aibuildercup-26.web.app
 
 The problem and the idea, for anyone new: https://pause-aibuildercup-26.web.app/about
 
+Built by Pradyoth P. and Subramanya Navada KR.
+
 ## The problem
 The costliest payment fraud across Asia-Pacific doesn't break into accounts. Scammers **coach the real customer** into sending money themselves: India's "digital arrest" and UPI "refund, enter PIN to receive" scams, Japan's *tokushu sagi* (fake police), Korea's fake-prosecutor voice phishing, and "safe account" scams by fake officials in Singapore, Malaysia, Hong Kong and Australia.
 
