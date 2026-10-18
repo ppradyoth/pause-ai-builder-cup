@@ -14,6 +14,7 @@ Rules:
 - Verdicts: PROCEED (no meaningful coercion evidence), HOLD (credible coercion risk: pause with cooling-off and trusted-contact check), BLOCK (strong scam evidence).
 - local_scam_name: the name this scam is known by in the customer's market, if any.
 - customer_message: 2-4 short sentences in the SAME language the customer wrote in (default English). Rebut the specific claims they described. Calm, respectful, never blaming. End with one concrete safe action.
+- customer_message_english: the same message in English (identical text if the customer wrote in English).
 - analyst_summary: one English sentence for the bank's fraud team.
 - markers: short exact quotes from the evidence that support the verdict.`;
 
@@ -36,9 +37,10 @@ const SCHEMA = {
     document_findings: { type: Type.STRING },
     language: { type: Type.STRING },
     customer_message: { type: Type.STRING },
+    customer_message_english: { type: Type.STRING },
     analyst_summary: { type: Type.STRING },
   },
-  required: ["verdict", "risk_score", "pattern", "cover_story_suspected", "markers", "language", "customer_message", "analyst_summary"],
+  required: ["verdict", "risk_score", "pattern", "cover_story_suspected", "markers", "language", "customer_message", "customer_message_english", "analyst_summary"],
 };
 
 let client;

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
   <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -44,7 +44,7 @@
       </div>
 
       <div class="scenarios">
-        <div class="section-label">Try a scenario</div>
+        <div class="scn-head"><div class="section-label">Try a scenario</div><div class="kbd-hint"><kbd>1</kbd>–<kbd>5</kbd> scenarios · <kbd>R</kbd> run · <kbd>C</kbd> console</div></div>
         <div id="scenarioList" class="scenario-list"></div>
       </div>
 
@@ -102,6 +102,10 @@
         <div class="eyebrow">Fraud operations · live from Firestore</div>
         <h1 class="headline small">Every intervention, <span class="grad">as it happens.</span></h1>
       </div>
+      <div class="console-bar">
+        <div class="seg" id="scopeSeg"><button type="button" data-scope="session" class="on">This session</button><button type="button" data-scope="all">All activity</button></div>
+        <span class="live-tag"><span class="live-dot"></span>real-time · Firestore</span>
+      </div>
       <div class="stats">
         <div class="stat glass"><label>Payments checked</label><span id="stTotal">0</span></div>
         <div class="stat glass hold"><label>Held</label><span id="stHold">0</span></div>
@@ -110,7 +114,7 @@
       </div>
       <div class="grid wide">
         <div class="glass pad">
-          <div class="card-h"><h3>Live case queue</h3><span class="live-tag"><span class="live-dot"></span>real-time</span></div>
+          <div class="card-h"><h3>Live case queue</h3></div>
           <div id="cases" class="cases"><p class="muted">Waiting for cases…</p></div>
         </div>
         <div class="glass pad">
@@ -122,10 +126,12 @@
     </section>
   </main>
 
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
   <footer>
     <div class="stack"><span>Gemini on Vertex AI</span><span>Cloud Run</span><span>Firestore</span><span>Firebase Hosting</span></div>
     <p>Prototype · simulated payment flow · payee IDs masked · AI Builder Cup 2026</p>
   </footer>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="app.js?v=3"></script>
 </body>
 </html>
