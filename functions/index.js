@@ -36,7 +36,7 @@ function buildIntent(body) {
   };
 }
 
-app.get("/api/health", (req, res) => res.json({ ok: true, gemini_configured: Boolean(process.env.GEMINI_API_KEY) }));
+app.get("/api/health", (req, res) => res.json({ ok: true, gemini: process.env.USE_VERTEX ? "vertex" : "api-key" }));
 
 app.post("/api/assess", async (req, res) => {
   try {

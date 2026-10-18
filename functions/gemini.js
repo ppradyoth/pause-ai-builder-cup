@@ -42,11 +42,13 @@ const SCHEMA = {
 };
 
 let client;
-const getClient = () => (client ||= new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY }));
+const getClient = () =>
+  (client ||= process.env.GEMINI_API_KEY && !process.env.USE_VERTEX
+    ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
+    : new GoogleGenAI({ vertexai: true, project: process.env.GCLOUD_PROJECT || "pause-aibuildercup-26", location: "global" }));
 const clean = (v) => String(v ?? "").replace(/<\/?untrusted>/gi, "");
 
 async function assessWithGemini({ market, intent, context, signals, answers, image }) {
-  if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY not set");
   const text = [
     `MARKET: ${market}`,
     `RAIL: ${intent.rail}  TYPE: ${intent.type}`,
@@ -73,7 +75,6 @@ async function assessWithGemini({ market, intent, context, signals, answers, ima
       responseMimeType: "application/json",
       responseSchema: SCHEMA,
       temperature: 0.2,
-      thinkingConfig: { thinkingBudget: 0 },
     },
   });
   const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error("Gemini timeout")), 25000));

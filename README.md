@@ -27,14 +27,14 @@ A coached victim behaves like a **prompt-injected AI agent**: the scammer plants
 Firebase Hosting (web/)  ── /api/** rewrite ──►  Cloud Functions 2nd gen on Cloud Run (functions/)
   Customer payment UI                              upi.js     payment adapter
   Fraud ops console ◄── Firestore real-time        rules.js   rules layer + policy floor
-                                                   gemini.js  Gemini 2.5 Flash, structured JSON output
+                                                   gemini.js  Gemini 2.5 Flash (Vertex AI), structured JSON output
                                                    index.js   policy combiner, Firestore audit trail
                          Firestore: cases/{id}, payees/{hash}
 ```
 
 | Google tech | Role |
 |---|---|
-| **Gemini 2.5 Flash** | Reads coercion and cover stories in multilingual free text, checks documents for forgery, returns structured verdicts, writes rebuttals in the customer's language |
+| **Gemini 2.5 Flash (Vertex AI)** | Reads coercion and cover stories in multilingual free text, checks documents for forgery, returns structured verdicts, writes rebuttals in the customer's language |
 | **Cloud Run** (Cloud Functions 2nd gen) | Stateless, autoscaling assessment API |
 | **Firestore** | Case audit trail, fraud-team queue, payee reputation across victims |
 | **Firebase Hosting** | Customer and console UIs, `/api` routed to the backend, real-time listeners |
